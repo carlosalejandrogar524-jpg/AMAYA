@@ -318,6 +318,85 @@
   .img-error-overlay{
     display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#0f172a,#08303a);color:#fff;font-weight:600;height:100%;
   }
+
+/* BOTÓN HAMBURGUESA */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 38px;
+  height: 34px;
+  cursor: pointer;
+  gap: 5px;
+  position: absolute;
+  right: 20px;
+  top: 22px;
+  z-index: 100;
+}
+.menu-toggle span {
+  height: 4px;
+  width: 100%;
+  background: white;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
+}
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* MENÚ MÓVIL */
+@media (max-width: 850px) {
+  nav.main-nav {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    top: 75px;
+    left: 0;
+    background: rgba(0, 0, 0, 0.92);
+    padding: 15px 0;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+  }
+
+  nav.main-nav.active {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+  }
+
+  nav.main-nav a {
+    color: white;
+    padding: 12px;
+    font-size: 1.05rem;
+    width: 100%;
+    text-align: center;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+}
+
+/* Carrusel de ofertas móvil */
+@media (max-width: 850px) {
+  .offers-track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .offer-card {
+    flex: 0 0 85%;
+    scroll-snap-align: start;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -326,7 +405,7 @@
  <header class="site-header">
   <div class="header-inner">
     <a href="#" class="brand">
-      <div class="logo">LOGO</div>
+      <div class="logo">CA</div>
       <h1>SUCURSAL AMAYA</h1>
     </a>
 
@@ -500,9 +579,21 @@
 
 <script>
 
-/* === Mostrar/Ocultar menú hamburguesa === */
-document.querySelector('.menu-toggle').addEventListener('click', function() {
-  document.querySelector('.main-nav').classList.toggle('show');
+/* === Mostrar/Ocultar menú hamburguesa (corregido) === */
+const menuToggle = document.querySelector('.menu-toggle');
+const mainNav = document.querySelector('.main-nav');
+
+menuToggle.addEventListener('click', () => {
+  menuToggle.classList.toggle('active');
+  mainNav.classList.toggle('active');
+});
+
+// Cerrar menú al hacer clic en un enlace (móvil)
+mainNav.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    menuToggle.classList.remove('active');
+    mainNav.classList.remove('active');
+  });
 });
 
 /* ---------- Image fallback ---------- */
@@ -596,3 +687,4 @@ document.querySelectorAll('.cat-card, .offer-card').forEach(el => {
 </body>
 
 </html>
+
