@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Comercial Amaya — Inicio</title>
+
+<!-- Fuentes -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg-1: #0f172a;            /* dark navy */
+    --accent-1: #06b6d4;        /* turquoise */
+    --accent-2: #06a78b;        /* green-teal */
+    --cta: #ffb020;             /* orange for CTA */
+    --card: #ffffff;
+    --muted: #94a3b8;
+    --radius: 14px;
+  }
+
+  /* Reset / base */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(180deg, rgba(6,23,34,1) 0%, rgba(8,45,60,1) 100%);
+    color:#0b1220;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* Container */
+  .wrap{
+    max-width:1200px;
+    margin:0 auto;
+    padding:20px;
+  }
+
+  /* Header */
+  header.site-header{
+    background: linear-gradient(90deg,var(--accent-1),var(--accent-2));
+    color:white;
+    padding:22px 0;
+    box-shadow: 0 8px 30px rgba(2,6,23,0.45);
+    position:sticky;
+    top:0;
+    z-index:40;
+  }
+  .header-inner{ display:flex; align-items:center; gap:20px; justify-content:space-between; max-width:1200px; margin:0 auto; padding:0 20px; }
+  .brand{ display:flex; align-items:center; gap:12px; cursor:pointer; text-decoration:none; color:white;}
+  .brand .logo{
+    width:48px; height:48px; border-radius:10px; background:rgba(255,255,255,0.14); display:flex; align-items:center; justify-content:center; font-weight:700;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+  .brand h1{ font-size:1.15rem; margin:0; font-weight:700; letter-spacing:0.2px; }
+  nav.main-nav{ display:flex; gap:18px; align-items:center; }
+  nav a{ color: white; text-decoration:none; font-weight:600; padding:6px 10px; border-radius:8px; transition:background .18s; }
+  nav a:hover{ background: rgba(255,255,255,0.08); }
+
+  .cta-buy{ background: white; color: var(--accent-1); padding:8px 14px; border-radius:10px; font-weight:700; box-shadow: 0 6px 18px rgba(2,6,23,0.25); }
+  .cta-buy:hover{ transform:translateY(-2px); }
+
+  /* Hero / Slider */
+  .hero{
+    margin:22px auto;
+    border-radius: var(--radius);
+    overflow:hidden;
+    max-width:1200px;
+    box-shadow: 0 18px 40px rgba(2,6,23,0.45);
+  }
+  .hero-slider{
+    position:relative; width:100%; height:320px; background:#0f172a; display:flex;
+  }
+  .slide{ min-width:100%; height:100%; position:relative; display:flex; align-items:center; gap:30px; padding:30px; color:white; }
+  .slide img{ width:50%; height:100%; object-fit:cover; border-radius:8px; box-shadow: 0 10px 30px rgba(2,6,23,0.5); }
+  .slide .hero-text{ width:50%; padding:10px 20px; }
+  .hero-title{ font-size:2rem; margin:0 0 12px; line-height:1.05; font-weight:700; text-shadow: 0 6px 30px rgba(0,0,0,0.45); }
+  .hero-sub{ color: #e6f7f7; margin-bottom:18px; font-weight:500; }
+  .hero-cta{ background:var(--cta); color:#081226; padding:10px 16px; border-radius:10px; font-weight:700; text-decoration:none; }
+
+  .slider-controls{ position:absolute; right:18px; bottom:18px; display:flex; gap:8px; z-index:5; }
+  .slider-controls button{ background:rgba(0,0,0,0.35); border:0; color:white; padding:8px 10px; border-radius:8px; cursor:pointer; }
+
+  /* Categories */
+  .section-title{ color:white; font-weight:700; margin:18px 0 10px; font-size:1.05rem; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .categories-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap:18px; margin-bottom:28px; }
+
+  .cat-card{
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+    border-radius:12px;
+    padding:16px;
+    text-align:center;
+    cursor:pointer;
+    transition: transform .25s, box-shadow .25s;
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+    box-shadow: 0 8px 28px rgba(2,6,23,0.35);
+    color: white;
+  }
+  .cat-card:hover{ transform:translateY(-6px); box-shadow: 0 20px 40px rgba(2,6,23,0.55); }
+  .cat-image{ width:110px; height:110px; border-radius:999px; overflow:hidden; border:4px solid rgba(255,255,255,0.12); display:block; }
+  .cat-image img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .cat-title{ font-weight:700; letter-spacing:0.2px; }
+
+  /* Offers carousel (simple) */
+  .offers{
+    margin:10px 0 40px;
+    background: rgba(255,255,255,0.03);
+    padding:18px;
+    border-radius:12px;
+    box-shadow: 0 10px 30px rgba(2,6,23,0.35);
+  }
+  .offers-track{ display:flex; gap:14px; overflow:hidden; align-items:stretch; }
+  .offer-card{ min-width:220px; background:white; color:#081226; border-radius:10px; overflow:hidden; box-shadow:0 8px 20px rgba(2,6,23,0.2); }
+  .offer-card img{ width:100%; height:140px; object-fit:cover; display:block; }
+  .offer-body{ padding:12px; }
+  .price-old{ text-decoration:line-through; color:var(--muted); font-size:0.9rem }
+  .price-now{ font-weight:800; color:var(--cta); font-size:1.05rem; margin-left:6px; }
+
+  /* Footer */
+  footer.site-footer{
+    margin-top:40px;
+    color:#e6f7f7;
+    padding:28px 20px;
+    text-align:center;
+    font-size:0.95rem;
+    opacity:0.95;
+  }
+
+  /* Responsive tweaks */
+  @media (max-width:900px){
+    .slide{ flex-direction:column; padding:18px; }
+    .slide img{ width:100%; height:220px; }
+    .hero-title{ font-size:1.35rem }
+    .category-card{ width:100% }
+  }
+  @media (max-width:600px){
+    .header-inner{ flex-direction:column; gap:12px; align-items:flex-start; padding:0 16px; }
+    nav.main-nav{ flex-wrap:wrap; gap:8px }
+    .cat-image{ width:90px; height:90px; }
+  }
+
+  /* small utility for hidden fallback overlay */
+  .img-error-overlay{
+    display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#0f172a,#08303a);color:#fff;font-weight:600;height:100%;
+  }
+</style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <a class="brand" href="index.html">
+        <div class="logo">CA</div>
+        <div>
+          <h1>Comercial Amaya</h1>
+          <div style="font-size:0.85rem;opacity:0.95">Tu hogar equipado al mejor precio</div>
+        </div>
+      </a>
+
+      <nav class="main-nav" role="navigation" aria-label="Principal">
+        <a href="index.html">Inicio</a>
+        <a href="#categorias">Categorías</a>
+        <a href="#ofertas">Ofertas</a>
+        <a href="contacto.html">Contacto</a>
+        <a class="cta-buy" href="ofertas.html">Ver Ofertas</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap" role="main">
+
+    <!-- HERO / SLIDER -->
+    <section class="hero" aria-label="Promociones">
+      <div class="hero-slider" id="heroSlider">
+        <!-- Slide 1 -->
+        <div class="slide" data-index="0">
+          <div class="hero-text">
+            <h2 class="hero-title">Ofertas imperdibles en refrigeración</h2>
+            <p class="hero-sub">Refrigeradoras de las mejores marcas con financiamiento y entrega rápida.</p>
+            <a class="hero-cta" href="electrodomesticos.html">Ver Refrigeradoras</a>
+          </div>
+          <img src="img/oferta1.jpg" alt="Oferta Refrigeradora" onerror="imgFallback(this)" loading="lazy">
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide" data-index="1">
+          <div class="hero-text">
+            <h2 class="hero-title">Renová tu cocina hoy</h2>
+            <p class="hero-sub">Cocinas, hornos y pequeños electrodomésticos con hasta 12 meses sin intereses.</p>
+            <a class="hero-cta" href="cocina.html">Explorar Cocina</a>
+          </div>
+          <img src="img/oferta2.jpg" alt="Oferta Cocina" onerror="imgFallback(this)" loading="lazy">
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide" data-index="2">
+          <div class="hero-text">
+            <h2 class="hero-title">Televisores y audio a precios especiales</h2>
+            <p class="hero-sub">Smart TV, barras de sonido y equipos para tu sala.</p>
+            <a class="hero-cta" href="audio.html">Ver Audio/Video</a>
+          </div>
+          <img src="img/oferta3.jpg" alt="Oferta TV" onerror="imgFallback(this)" loading="lazy">
+        </div>
+
+        <!-- Slider controls -->
+        <div class="slider-controls" aria-hidden="true">
+          <button id="prevSlide" title="Anterior">◀</button>
+          <button id="nextSlide" title="Siguiente">▶</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="categorias" aria-labelledby="cat-title">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <h3 id="cat-title" class="section-title" style="margin:0;color:white;">Categorías destacadas</h3>
+        <div style="color:#cfeff0;font-weight:600;">¿Qué buscás hoy?</div>
+      </div>
+
+      <div class="categories-grid" role="list">
+        <article class="cat-card" role="listitem" onclick="location.href='electrodomesticos.html'">
+          <figure class="cat-image" aria-hidden="true">
+            <img src="img/electrodomesticos.jpg" alt="Electrodomésticos" onerror="imgFallback(this)" loading="lazy">
+          </figure>
+          <div class="cat-title">Electrodomésticos</div>
+        </article>
+
+        <article class="cat-card" role="listitem" onclick="location.href='cocina.html'">
+          <figure class="cat-image"><img src="img/cocina.jpg" alt="Cocina" onerror="imgFallback(this)" loading="lazy"></figure>
+          <div class="cat-title">Cocina</div>
+        </article>
+
+        <article class="cat-card" role="listitem" onclick="location.href='limpieza.html'">
+          <figure class="cat-image"><img src="img/limpieza.jpg" alt="Limpieza" onerror="imgFallback(this)" loading="lazy"></figure>
+          <div class="cat-title">Limpieza</div>
+        </article>
+
+        <article class="cat-card" role="listitem" onclick="location.href='tecnologia.html'">
+          <figure class="cat-image"><img src="img/tecnologia.jpg" alt="Tecnología" onerror="imgFallback(this)" loading="lazy"></figure>
+          <div class="cat-title">Tecnología</div>
+        </article>
+
+        <article class="cat-card" role="listitem" onclick="location.href='muebles.html'">
+          <figure class="cat-image"><img src="img/muebles.jpg" alt="Muebles" onerror="imgFallback(this)" loading="lazy"></figure>
+          <div class="cat-title">Muebles</div>
+        </article>
+
+        <article class="cat-card" role="listitem" onclick="location.href='audio.html'">
+          <figure class="cat-image"><img src="img/audio.jpg" alt="Audio y Video" onerror="imgFallback(this)" loading="lazy"></figure>
+          <div class="cat-title">Audio / Video</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Offers carousel -->
+    <section id="ofertas" aria-labelledby="ofertas-title" class="offers">
+      <div style="display:flex;align-items:center;justify-content:space-between; gap:8px; margin-bottom:12px;">
+        <h3 id="ofertas-title" style="margin:0;color:white;">Ofertas destacadas</h3>
+        <div style="color:#cfeff0;font-weight:600;">Precios especiales por tiempo limitado</div>
+      </div>
+
+      <div class="offers-track" id="offersTrack" aria-live="polite">
+        <div class="offer-card">
+          <img src="img/oferta1.jpg" alt="Refrigeradora en oferta" onerror="imgFallback(this)" loading="lazy">
+          <div class="offer-body">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div style="font-weight:700">Refrigeradora Samsung</div>
+              <div><span class="price-old">$699.99</span><span class="price-now">$499.99</span></div>
+            </div>
+            <div style="margin-top:8px;color:#334155;font-size:0.95rem">Entrega rápida • Garantía 2 años</div>
+          </div>
+        </div>
+
+        <div class="offer-card">
+          <img src="img/oferta2.jpg" alt="Lavadora en oferta" onerror="imgFallback(this)" loading="lazy">
+          <div class="offer-body">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div style="font-weight:700">Lavadora Whirlpool</div>
+              <div><span class="price-old">$449.99</span><span class="price-now">$299.99</span></div>
+            </div>
+            <div style="margin-top:8px;color:#334155;font-size:0.95rem">Financiación disponible</div>
+          </div>
+        </div>
+
+        <div class="offer-card">
+          <img src="img/oferta3.jpg" alt="Smart TV en oferta" onerror="imgFallback(this)" loading="lazy">
+          <div class="offer-body">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div style="font-weight:700">Smart TV LG 55"</div>
+              <div><span class="price-old">$599.99</span><span class="price-now">$399.99</span></div>
+            </div>
+            <div style="margin-top:8px;color:#334155;font-size:0.95rem">Instalación opcional</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="wrap">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center">
+        <div>📍 Sucursal: Colón, El Salvador</div>
+        <div>📞 +503 7000-0000</div>
+        <div>✉️ ventas@comercialamaya.sv</div>
+      </div>
+      <div style="margin-top:12px; color:#cfeff0; font-size:0.9rem">© 2025 Comercial Amaya — Todos los derechos reservados</div>
+    </div>
+  </footer>
+
+<script>
+/* ---------- Image fallback: show a simple overlay if image fails ---------- */
+function imgFallback(img){
+  try{
+    const parent = img.parentNode;
+    // create overlay if not present
+    if(!parent.querySelector('.img-error-overlay')){
+      const overlay = document.createElement('div');
+      overlay.className = 'img-error-overlay';
+      overlay.innerHTML = 'Imagen no disponible';
+      // remove the broken image and show overlay
+      img.style.display = 'none';
+      parent.appendChild(overlay);
+    }
+  }catch(e){console.warn(e)}
+}
+
+/* ---------- Simple hero slider (vanilla) ---------- */
+(function(){
+  const container = document.getElementById('heroSlider');
+  const slides = Array.from(container.querySelectorAll('.slide'));
+  let i = 0;
+  let auto = true;
+  const show = idx => {
+    container.style.transform = `translateX(-${idx*100}%)`;
+    slides.forEach(s => s.style.minWidth = '100%');
+  };
+  // wrap slides into a flex row container
+  const wrapper = document.createElement('div');
+  wrapper.style.display = 'flex';
+  wrapper.style.width = `${slides.length * 100}%`;
+  wrapper.style.transition = 'transform .6s cubic-bezier(.22,.95,.35,1)';
+  wrapper.style.height = '100%';
+  // move slides inside wrapper
+  slides.forEach(slide => wrapper.appendChild(slide));
+  // place wrapper inside heroSlider (clear children)
+  while(container.firstChild) container.removeChild(container.firstChild);
+  container.appendChild(wrapper);
+  // controls
+  document.getElementById('prevSlide').addEventListener('click', ()=>{
+    i = (i - 1 + slides.length) % slides.length;
+    wrapper.style.transform = `translateX(-${i*100}%)`;
+  });
+  document.getElementById('nextSlide').addEventListener('click', ()=>{
+    i = (i + 1) % slides.length;
+    wrapper.style.transform = `translateX(-${i*100}%)`;
+  });
+  // autoplay
+  let timer = setInterval(()=>{ if(auto){ i = (i+1)%slides.length; wrapper.style.transform = `translateX(-${i*100}%)`; } }, 4500);
+  // pause on hover
+  container.addEventListener('mouseenter', ()=> auto = false);
+  container.addEventListener('mouseleave', ()=> auto = true);
+})();
+
+/* ---------- Offers track simple scroll left-right on small screens ---------- */
+(function(){
+  const track = document.getElementById('offersTrack');
+  let pos = 0;
+  const cards = track.querySelectorAll('.offer-card');
+  // if many cards, allow arrow keys
+  document.addEventListener('keydown', (e)=>{
+    if(e.key === 'ArrowRight'){ track.scrollBy({left:220, behavior:'smooth'}); }
+    if(e.key === 'ArrowLeft'){ track.scrollBy({left:-220, behavior:'smooth'}); }
+  });
+})();
+
+/* ---------- Accessibility: ensure keyboard focus clickable ---------- */
+document.querySelectorAll('.cat-card, .offer-card, .category-card').forEach(el=>{
+  el.tabIndex = 0;
+  el.addEventListener('keypress', e=>{
+    if(e.key === 'Enter') el.click();
+  });
+});
+</script>
+
+</body>
+</html>
